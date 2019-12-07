@@ -152,6 +152,9 @@ while Continue:
                 ball.rect.y = 250
                 Run=2
                 
+        if pygame.sprite.collide_mask(ball, paddleA) or pygame.sprite.collide_mask(ball, paddleB):
+            ball.bounce() 
+            
         all_sprites_list.update()
 
         # Drawing the sprites
