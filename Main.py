@@ -25,24 +25,24 @@ RED = (255,0,0)
 # Creating two paddles, one for each player
 # Assigning the respective colors
 # Establishing the positions of the paddles
-paddleA = Paddle(RED, 10, 50)
-paddleA.rect.x = 20
-paddleA.rect.y = 250
+paddleRed = Paddle(RED, 10, 50)
+paddleRed.rect.x = 20
+paddleRed.rect.y = 250
 
-paddleB = Paddle(BLUE, 10, 50)
-paddleB.rect.x = 670
-paddleB.rect.y = 250
+paddleBlue = Paddle(BLUE, 10, 50)
+paddleBlue.rect.x = 670
+paddleBlue.rect.y = 250
 
-ball=Ball(WHITE,10,10)
-ball.rect.x=340
-ball.rect.y=250
+ball = Ball(WHITE, 10, 10)
+ball.rect.x = 340
+ball.rect.y = 250
 
 # List of all the sprites to be used
 all_sprites_list = pygame.sprite.Group()
 
 # Adding the paddles to the list of sprites
-all_sprites_list.add(paddleA)
-all_sprites_list.add(paddleB)
+all_sprites_list.add(paddleRed)
+all_sprites_list.add(paddleBlue)
 all_sprites_list.add(ball)
 
 # Using clock to set the number of times screen updates each second
@@ -59,13 +59,17 @@ font1 = pygame.font.Font("/Users/Keith/Downloads/zorque/zorque.ttf", 120)
 font2 = pygame.font.Font("/Users/Keith/Downloads/product-sans/Product Sans Regular.ttf", 20)
 font3 = pygame.font.Font("/Users/Keith/Downloads/zorque/zorque.ttf", 40)
 
-keys = pygame.key.get_pressed()
-
 # Establishing a requirement of condition that will trigger the title screen
 Start = 2
 # Establishing a requirement of condition that will trigger the main game loop
 Run = 0
 timer = 0
+Person = 0
+
+# Displaying the initial score:
+scoreRed = 0
+scoreBlue = 0
+
 # Running game until Continue is False
 while Continue:
     events = pygame.event.get()
@@ -84,87 +88,109 @@ while Continue:
             if event.key == pygame.K_ESCAPE:
                 # Breaking the loop, closing the game
                 Continue = False
+            if event.key == pygame.K_p:
+                Person = 1
+            if event.key == pygame.K_r:
+                Start = 2
+                Run = 0
+                timer = 0
             # If return key specifically is pressed
             if event.key == pygame.K_RETURN:
-                    if timer == 0:  # First return press.
-                        timer = 0.001  # Start the timer.
-                    # Press again before 0.5 seconds to double press.
-                    elif timer < 5:
-                        print('double press')
-                        timer = 0
-                        Run += 2  # Starting main game loop
-                        # Playing main background track when game is started
-                        winsound.PlaySound("/Users/Keith/Downloads/backtrack.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
-
-
-
-    # Increase timer after mouse was pressed the first time.
-    if timer != 0:
-        timer += 0.1
-        # Reset after 0.5 seconds.
-        if timer >= 5:
-            Run += 1  # Allowing person vs computer choice
-            timer = 0
+                if timer == 0:  # First return press.
+                    Run += 1
+                    timer = 1  # Start the timer.
+                elif timer != 0:
+                    Run += 1  # Starting main game loop
+                    timer = 0
+                    # Playing main background track when game is started
+                    winsound.PlaySound("/Users/Keith/Downloads/backtrack.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
 
     if Run == 2:
-        # Clearing the screen
-        screen.fill(BLACK)
-        # Drawing the score bar
-        pygame.draw.line(screen, WHITE, [350, 0], [350, 75], 5)
-        pygame.draw.line(screen, WHITE, [700, 75], [0, 75], 10)
-        # Drawing the net
-        for dash in range(75, 500, 30):
-            pygame.draw.line(screen, WHITE, [350, dash - 10], [350, dash], 1)
+        if Person == 1:
+            # Clearing the screen
+            screen.fill(BLACK)
+            # Drawing the score bar
+            pygame.draw.line(screen, WHITE, [350, 0], [350, 75], 5)
+            pygame.draw.line(screen, WHITE, [700, 75], [0, 75], 10)
+            # Drawing the net
+            for dash in range(75, 500, 30):
+                pygame.draw.line(screen, WHITE, [350, dash - 10], [350, dash], 1)
 
-        # Displaying the initial score:
-        scoreA = 0
-        scoreB = 0
-        text = font.render(str(scoreA), 1, WHITE)
-        screen.blit(text, (175, 1))
-        text = font.render(str(scoreB), 1, WHITE)
-        screen.blit(text, (525, 1))
 
-        # Moving the paddles when player A uses the arrow keys or player B uses the "W/S" keys
-        if keys[pygame.K_w]:
-            paddleA.moveUp(5)
-        if keys[pygame.K_s]:
-            paddleA.moveDown(5)
-        if keys[pygame.K_UP]:
-            paddleB.moveUp(5)
-        if keys[pygame.K_DOWN]:
-            paddleB.moveDown(5)
 
-        if ball.rect.x <= 700 and ball.rect.x >= 0:
-            if ball.rect.y<0:
-                ball.velocity[1] = -ball.velocity[1]
-            if ball.rect.y>500:
-                ball.velocity[1] = -ball.velocity[1]
-        if ball.rect.x<0:
-            if ball.rect.y<500 and ball.rect.y>0:
-                scoreA += 1
-                ball.rect.x = 345
-                ball.rect.y = 250
-                Run=2
-        if ball.rect.x >700:
-            if ball.rect.y < 500 and ball.rect.y > 0:
-                scoreB += 1
-                ball.rect.x = 345
-                ball.rect.y = 250
-                Run=2
-                
-        if pygame.sprite.collide_mask(ball, paddleA) or pygame.sprite.collide_mask(ball, paddleB):
-            ball.bounce() 
-            
-        all_sprites_list.update()
+            # Moving the paddles when player A uses the arrow keys or player B uses the "W/S" keys
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_w]:
+                paddleRed.moveUp(7)
+            if keys[pygame.K_s]:
+                paddleRed.moveDown(7)
+            if keys[pygame.K_UP]:
+                paddleBlue.moveUp(7)
+            if keys[pygame.K_DOWN]:
+                paddleBlue.moveDown(7)
 
-        # Drawing the sprites
-        all_sprites_list.draw(screen)
+            if ball.rect.x <= 700 and ball.rect.x >= 0:
+                if ball.rect.y < 85:
+                    ball.velocity[1] = -ball.velocity[1]
+                if ball.rect.y > 500:
+                    ball.velocity[1] = -ball.velocity[1]
+            if ball.rect.x < 0:
+                if ball.rect.y < 500 and ball.rect.y > 0:
+                    scoreBlue += 1
+                    ball.rect.x = 345
+                    ball.rect.y = 250
+                    Run = 2
+            if ball.rect.x > 700:
+                if ball.rect.y < 500 and ball.rect.y > 0:
+                    scoreRed += 1
+                    ball.rect.x = 345
+                    ball.rect.y = 250
+                    Run = 2
 
-        # Refreshing screen with lines and sprites
-        pygame.display.flip()
+            if scoreRed == 1:
+                Run = 3
+                screen.fill(BLACK)
+                text = font3.render("Red wins!", 1, WHITE)
+                screen.blit(text, (20, 90))
+                screen.fill(BLACK)
+                text = font3.render("Do you want to play again?", 1, WHITE)
+                screen.blit(text, (20, 90))
+                text = font2.render("Press R", 1, WHITE)
+                screen.blit(text, (300, 415))
+                # Refreshing screen with text
+                pygame.display.flip()
 
-        # Passing 30 frames in every second
-        clock.tick(30)
+            if scoreBlue == 1:
+                Run = 3
+                text = font3.render("Blue wins!", 1, WHITE)
+                screen.blit(text, (20, 90))
+                screen.fill(BLACK)
+                text = font3.render("Do you want to play again?", 1, WHITE)
+                screen.blit(text, (20, 90))
+                text = font2.render("Press R", 1, WHITE)
+                screen.blit(text, (300, 415))
+                # Refreshing screen with text
+                pygame.display.flip()
+
+            if pygame.sprite.collide_mask(ball, paddleRed) or pygame.sprite.collide_mask(ball, paddleBlue):
+                ball.bounce()
+
+            text = font.render(str(scoreRed), 1, WHITE)
+            screen.blit(text, (175, 1))
+            text = font.render(str(scoreBlue), 1, WHITE)
+            screen.blit(text, (525, 1))
+
+            all_sprites_list.update()
+
+            # Drawing the sprites
+            all_sprites_list.draw(screen)
+
+            # Refreshing screen with lines and sprites
+            pygame.display.flip()
+
+            # Passing 30 frames in every second
+            clock.tick(30)
+
     # If Run is still 0, meaning return has not been pressed
     if Run == 0:
         # If Start is still 1, meaning title screen code has yet to run
@@ -197,6 +223,10 @@ while Continue:
             pygame.display.flip()
             # Changing Start so that title screen displays only once
             Start = 0
+    if Run == 3:
+        screen.fill(BLACK)
+
+
 
 # Stopping game engine when Continue is False:
 pygame.quit()
