@@ -4,6 +4,7 @@ import pygame
 import winsound
 # Importing Paddle class
 from Paddles import Paddle
+from Ball import Ball
 
 # Initialising game engine
 pygame.init()
@@ -32,12 +33,17 @@ paddleB = Paddle(BLUE, 10, 50)
 paddleB.rect.x = 670
 paddleB.rect.y = 250
 
+ball=Ball(WHITE,10,10)
+ball.rect.x=340
+ball.rect.y=250
+
 # List of all the sprites to be used
 all_sprites_list = pygame.sprite.Group()
 
 # Adding the paddles to the list of sprites
 all_sprites_list.add(paddleA)
 all_sprites_list.add(paddleB)
+all_sprites_list.add(ball)
 
 # Using clock to set the number of times screen updates each second
 clock = pygame.time.Clock()
@@ -128,6 +134,24 @@ while Continue:
         if keys[pygame.K_DOWN]:
             paddleB.moveDown(5)
 
+        if ball.rect.x <= 700 and ball.rect.x >= 0:
+            if ball.rect.y<0:
+                ball.velocity[1] = -ball.velocity[1]
+            if ball.rect.y>500:
+                ball.velocity[1] = -ball.velocity[1]
+        if ball.rect.x<0:
+            if ball.rect.y<500 and ball.rect.y>0:
+                scoreA += 1
+                ball.rect.x = 345
+                ball.rect.y = 250
+                Run=2
+        if ball.rect.x >700:
+            if ball.rect.y < 500 and ball.rect.y > 0:
+                scoreB += 1
+                ball.rect.x = 345
+                ball.rect.y = 250
+                Run=2
+                
         all_sprites_list.update()
 
         # Drawing the sprites
