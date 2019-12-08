@@ -77,6 +77,14 @@ while Continue:
     for event in events:
         # If exit button is clicked
         if event.type == pygame.QUIT:
+            # Create a surface object, image is drawn on it
+            image = pygame.image.load("/Users/Keith/Downloads/Pygamer credits.png")
+            # completely fill the surface object with white colour
+            screen.fill(WHITE)
+            # copying the image surface object to the display surface object at (0, 0) coordinate.
+            screen.blit(image, (0, 0))
+            pygame.display.flip()
+            pygame.time.wait(5000)
             # Breaking the loop, closing the game
             Continue = False
         # If any key is being pressed
@@ -87,6 +95,14 @@ while Continue:
                 screen = pygame.display.set_mode((700, 500))
             # If Esc button is clicked
             if event.key == pygame.K_ESCAPE:
+                # Create a surface object, image is drawn on it
+                image = pygame.image.load("/Users/Keith/Downloads/Pygamer credits.png")
+                # completely fill the surface object with white colour
+                screen.fill(WHITE)
+                # copying the image surface object to the display surface object at (0, 0) coordinate.
+                screen.blit(image, (0, 0))
+                pygame.display.flip()
+                pygame.time.wait(10000)
                 # Breaking the loop, closing the game
                 Continue = False
             if event.key == pygame.K_p:
@@ -256,6 +272,8 @@ while Continue:
                     Run = 2
 
             if scoreRed >= 3:
+                # Playing main background track when game is started
+                winsound.PlaySound("/Users/Keith/Downloads/All I Do Is Win.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
                 screen.fill(BLACK)
                 pygame.display.flip()
                 Run = 10
@@ -283,7 +301,9 @@ while Continue:
                 #     pass
                 # else:
 
-            if scoreBlue >= 11:
+            if scoreBlue >= 3:
+                # Playing main background track when game is started
+                winsound.PlaySound("/Users/Keith/Downloads/All I Do Is Win.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
                 screen.fill(BLACK)
                 pygame.display.flip()
                 Run = 10
