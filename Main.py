@@ -102,8 +102,6 @@ while Continue:
                 Person = 0
                 scoreBlue = 0
                 scoreRed = 0
-
-               # pygame.font.quit()
             # If return key specifically is pressed
             if event.key == pygame.K_RETURN:
                 if timer == 0:  # First return press.
@@ -157,7 +155,9 @@ while Continue:
                     ball.rect.y = 250
                     Run = 2
 
-            if scoreRed >= 11:
+            if scoreRed >= 3:
+                # Playing main background track when game is started
+                winsound.PlaySound("/Users/Keith/Downloads/All I Do Is Win.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
                 screen.fill(BLACK)
                 pygame.display.flip()
                 Run = 10
@@ -170,21 +170,11 @@ while Continue:
                 screen.blit(text, (60, 200))
                 text = font2.render("Press R", 1, WHITE)
                 screen.blit(text, (320, 415))
-                # # Refreshing screen with text
-                # pygame.display.flip()
-                # scoreBlue = 0
-                # scoreRed = 0
-                # text = font.render(str(scoreRed), 1, WHITE)
-                # screen.blit(text, (175, 1))
-                # text = font.render(str(scoreBlue), 1, WHITE)
-                # screen.blit(text, (525, 1))
-                # Refreshing screen with text
                 pygame.display.flip()
-                # if keys[pygame.K_r]:
-                #     pass
-                # else:
 
-            if scoreBlue >= 11:
+            if scoreBlue >= 3:
+                # Playing main background track when game is started
+                winsound.PlaySound("/Users/Keith/Downloads/All I Do Is Win.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
                 screen.fill(BLACK)
                 pygame.display.flip()
                 Run = 10
@@ -197,15 +187,6 @@ while Continue:
                 screen.blit(text, (60, 200))
                 text = font2.render("Press R", 1, WHITE)
                 screen.blit(text, (300, 415))
-                # scoreBlue = 0
-                # scoreRed = 0
-                # text = font.render(str(scoreRed), 1, WHITE)
-                # screen.blit(text, (175, 1))
-                # text = font.render(str(scoreBlue), 1, WHITE)
-                # screen.blit(text, (525, 1))
-                # text = font3.render("Blue wins!", 1, BLACK)
-                # screen.blit(text, (250, 90))
-                # Refreshing screen with text
                 pygame.display.flip()
 
             if pygame.sprite.collide_mask(ball, paddleRed) or pygame.sprite.collide_mask(ball, paddleBlue):
@@ -352,7 +333,6 @@ while Continue:
         # If Start is still 1, meaning title screen code has yet to run
         while Start == 2:
             screen.fill(BLACK)
-            #pygame.font.init()
             # Playing title background track on title screen
             winsound.PlaySound("/Users/Keith/Downloads/doot doots.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
             text = font1.render("Pong V2", 1, WHITE)
