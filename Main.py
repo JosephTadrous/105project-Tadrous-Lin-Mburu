@@ -5,7 +5,7 @@ import winsound
 # Importing Paddle class
 from Paddles import Paddle
 from Ball import Ball
-
+import random
 # Initialising game engine
 pygame.init()
 
@@ -117,6 +117,7 @@ while Continue:
                 Person = 0
                 scoreBlue = 0
                 scoreRed = 0
+
             # If return key specifically is pressed
             if event.key == pygame.K_RETURN:
                 if timer == 0:  # First return press.
@@ -162,13 +163,23 @@ while Continue:
                     scoreBlue += 1
                     ball.rect.x = 345
                     ball.rect.y = 250
+                    paddleBlue.rect.x = 670
+                    paddleBlue.rect.y = 250
+                    paddleRed.rect.x = 20
+                    paddleRed.rect.y = 250
                     Run = 2
+                    ball.velocity = [random.randint(15, 15), random.randint(0, 0)]
             if ball.rect.x > 700:
                 if ball.rect.y < 500 and ball.rect.y > 0:
                     scoreRed += 1
                     ball.rect.x = 345
                     ball.rect.y = 250
+                    paddleBlue.rect.x = 670
+                    paddleBlue.rect.y = 250
+                    paddleRed.rect.x = 20
+                    paddleRed.rect.y = 250
                     Run = 2
+                    ball.velocity = [random.randint(15, 15), random.randint(0, 0)]
 
             if scoreRed >= 3:
                 # Playing main background track when game is started
@@ -241,13 +252,13 @@ while Continue:
                 paddleBlue.moveDown(7)
 
             if ball.rect.y < paddleRed.rect.y:
-                paddleRed.rect.y = paddleRed.rect.y - 7
+                paddleRed.rect.y = paddleRed.rect.y - 4
                 if paddleRed.rect.y < 80:
                     paddleRed.rect.y = 80
                 if paddleRed.rect.y > 450:
                     paddleRed.rect.y = 450
             if ball.rect.y > paddleRed.rect.y:
-                paddleRed.rect.y = paddleRed.rect.y + 7
+                paddleRed.rect.y = paddleRed.rect.y + 4
                 if paddleRed.rect.y < 80:
                     paddleRed.rect.y = 80
                 if paddleRed.rect.y > 450:
@@ -263,13 +274,23 @@ while Continue:
                     scoreBlue += 1
                     ball.rect.x = 345
                     ball.rect.y = 250
+                    paddleBlue.rect.x = 670
+                    paddleBlue.rect.y = 250
+                    paddleRed.rect.x = 20
+                    paddleRed.rect.y = 250
                     Run = 2
+                    ball.velocity = [random.randint(15, 15), random.randint(0, 0)]
             if ball.rect.x > 700:
                 if ball.rect.y < 500 and ball.rect.y > 0:
                     scoreRed += 1
                     ball.rect.x = 345
                     ball.rect.y = 250
+                    paddleBlue.rect.x = 670
+                    paddleBlue.rect.y = 250
+                    paddleRed.rect.x = 20
+                    paddleRed.rect.y = 250
                     Run = 2
+                    ball.velocity = [random.randint(15, 15), random.randint(0, 0)]
 
             if scoreRed >= 3:
                 # Playing main background track when game is started
@@ -344,8 +365,8 @@ while Continue:
             # Refreshing screen with lines and sprites
             pygame.display.flip()
 
-            # Passing 30 frames in every second
-            clock.tick(30)
+            # Passing 60 frames in every second
+            clock.tick(60)
 
     # If Run is still 0, meaning return has not been pressed
     if Run == 0:
