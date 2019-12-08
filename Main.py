@@ -57,10 +57,10 @@ clock = pygame.time.Clock()
 Continue = True
 
 # Setting the fonts and font sizes to be used for title screen and scores
-font = pygame.font.Font("/Users/Keith/Downloads/product-sans/Product Sans Regular.ttf", 60)
-font1 = pygame.font.Font("/Users/Keith/Downloads/zorque/zorque.ttf", 120)
-font2 = pygame.font.Font("/Users/Keith/Downloads/product-sans/Product Sans Regular.ttf", 20)
-font3 = pygame.font.Font("/Users/Keith/Downloads/zorque/zorque.ttf", 40)
+font = pygame.font.SysFont("arial", 60)
+font1 = pygame.font.SysFont("arial", 120)
+font2 = pygame.font.SysFont("arial", 20)
+font3 = pygame.font.SysFont("arial", 40)
 
 # Establishing a requirement of condition that will trigger the title screen
 Start = 3
@@ -74,6 +74,26 @@ Difficulty = 1
 # Displaying the initial score:
 scoreRed = 0
 scoreBlue = 0
+
+
+def Pause():
+    paused = True
+    while paused:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_t:
+                    paused = False
+                if event.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    quit()
+        message = font2.render("Paused", 1, WHITE)
+        screen.blit(message, (300, 415))
+        message2 = font2.render("Press T to continue", 1, WHITE)
+        screen.blit(message2, (400, 415))
+        pygame.display.flip()
 
 # Running game until Continue is False
 while Continue:
@@ -136,7 +156,8 @@ while Continue:
                     Run += 1
                 elif Run != 0:
                     Run += 1
-
+            if event.key == pygame.K_t:
+                Pause()
 
     if Run == 3:
         if Person == 1:
