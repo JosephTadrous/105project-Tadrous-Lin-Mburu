@@ -33,7 +33,6 @@ paddleBlue = Paddle(BLUE, 10, 50)
 paddleBlue.rect.x = 670
 paddleBlue.rect.y = 250
 
-
 ball = Ball(WHITE, 10, 10)
 ball.rect.x = 340
 ball.rect.y = 250
@@ -55,10 +54,10 @@ clock = pygame.time.Clock()
 Continue = True
 
 # Setting the fonts and font sizes to be used for title screen and scores
-font = pygame.font.SysFont("arial", 60)
-font1 = pygame.font.SysFont("arial", 120)
-font2 = pygame.font.SysFont("arial", 20)
-font3 = pygame.font.SysFont("arial", 40)
+font = pygame.font.Font("/Users/Keith/Downloads/product-sans/Product Sans Regular.ttf", 60)
+font1 = pygame.font.Font("/Users/Keith/Downloads/zorque/zorque.ttf", 120)
+font2 = pygame.font.Font("/Users/Keith/Downloads/product-sans/Product Sans Regular.ttf", 20)
+font3 = pygame.font.Font("/Users/Keith/Downloads/zorque/zorque.ttf", 40)
 
 # Establishing a requirement of condition that will trigger the title screen
 Start = 2
@@ -207,6 +206,7 @@ while Continue:
 
             # Passing 30 frames in every second
             clock.tick(30)
+
         if Computer == 1:
             # Clearing the screen
             screen.fill(BLACK)
@@ -216,8 +216,6 @@ while Continue:
             # Drawing the net
             for dash in range(75, 500, 30):
                 pygame.draw.line(screen, WHITE, [350, dash - 10], [350, dash], 1)
-
-
 
             # Moving the paddles when player A uses the arrow keys or player B uses the "W/S" keys
             keys = pygame.key.get_pressed()
@@ -257,13 +255,14 @@ while Continue:
                     ball.rect.y = 250
                     Run = 2
 
-            if scoreRed >= 11:
+            if scoreRed >= 3:
                 screen.fill(BLACK)
                 pygame.display.flip()
                 Run = 10
                 Start = 12
                 Timer = 10
                 Person = 10
+                Computer = 10
                 text = font3.render("Red wins!", 1, RED)
                 screen.blit(text, (250, 90))
                 text = font3.render("Do you want to play again?", 1, WHITE)
@@ -291,6 +290,7 @@ while Continue:
                 Start = 12
                 Timer = 10
                 Person = 10
+                Computer = 10
                 text = font3.render("Blue wins!", 1, BLUE)
                 screen.blit(text, (250, 90))
                 text = font3.render("Do you want to play again?", 1, WHITE)
@@ -326,7 +326,6 @@ while Continue:
 
             # Passing 30 frames in every second
             clock.tick(30)
-
 
     # If Run is still 0, meaning return has not been pressed
     if Run == 0:
