@@ -4,8 +4,11 @@ import pygame
 import winsound
 # Importing Paddle class
 from Paddles import Paddle
+# Importing Ball class
 from Ball import Ball
+# Importing package to randomize ball velocity
 import random
+
 # Initialising game engine
 pygame.init()
 
@@ -60,12 +63,13 @@ font2 = pygame.font.Font("/Users/Keith/Downloads/product-sans/Product Sans Regul
 font3 = pygame.font.Font("/Users/Keith/Downloads/zorque/zorque.ttf", 40)
 
 # Establishing a requirement of condition that will trigger the title screen
-Start = 2
+Start = 3
 # Establishing a requirement of condition that will trigger the main game loop
 Run = 0
 timer = 0
 Person = 0
 Computer = 0
+Difficulty = 1
 
 # Displaying the initial score:
 scoreRed = 0
@@ -77,14 +81,6 @@ while Continue:
     for event in events:
         # If exit button is clicked
         if event.type == pygame.QUIT:
-            # Create a surface object, image is drawn on it
-            image = pygame.image.load("/Users/Keith/Downloads/Pygamer credits.png")
-            # completely fill the surface object with white colour
-            screen.fill(WHITE)
-            # copying the image surface object to the display surface object at (0, 0) coordinate.
-            screen.blit(image, (0, 0))
-            pygame.display.flip()
-            pygame.time.wait(5000)
             # Breaking the loop, closing the game
             Continue = False
         # If any key is being pressed
@@ -95,6 +91,9 @@ while Continue:
                 screen = pygame.display.set_mode((700, 500))
             # If Esc button is clicked
             if event.key == pygame.K_ESCAPE:
+                # Breaking the loop, closing the game
+                Continue = False
+            if event.key == pygame.K_SPACE:
                 # Create a surface object, image is drawn on it
                 image = pygame.image.load("/Users/Keith/Downloads/Pygamer credits.png")
                 # completely fill the surface object with white colour
@@ -102,34 +101,44 @@ while Continue:
                 # copying the image surface object to the display surface object at (0, 0) coordinate.
                 screen.blit(image, (0, 0))
                 pygame.display.flip()
-                pygame.time.wait(10000)
-                # Breaking the loop, closing the game
-                Continue = False
             if event.key == pygame.K_p:
-                Person = 1
-            if event.key == pygame.K_c:
-                Computer = 1
-            if event.key == pygame.K_r:
-                screen.fill(BLACK)
-                Start = 2
-                Run = 0
-                timer = 0
-                Person = 0
-                scoreBlue = 0
-                scoreRed = 0
-
-            # If return key specifically is pressed
-            if event.key == pygame.K_RETURN:
-                if timer == 0:  # First return press.
+                if Run == 1:
+                    Person = 1
                     Run += 1
-                    timer = 1  # Start the timer.
-                elif timer != 0: # Second return press
-                    Run += 1  # Starting main game loop
-                    timer = 0
                     # Playing main background track when game is started
                     winsound.PlaySound("/Users/Keith/Downloads/backtrack.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
+            if event.key == pygame.K_c:
+                Computer = 1
+                if Run == 1:
+                    Run += 1
+                    # Playing main background track when game is started
+                    winsound.PlaySound("/Users/Keith/Downloads/backtrack.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
+            if event.key == pygame.K_e:
+                Difficulty = 1
+                Run += 1
+            if event.key == pygame.K_n:
+                Difficulty = 2
+                Run += 1
+            if event.key == pygame.K_h:
+                Difficulty = 3
+                Run += 1
+            if event.key == pygame.K_r:
+                screen.fill(BLACK)
+                Start = 3
+                Run = 0
+                Person = 0
+                Computer = 0
+                scoreBlue = 0
+                scoreRed = 0
+            # If return key specifically is pressed
+            if event.key == pygame.K_RETURN:
+                if Run == 0:  # First return press.
+                    Run += 1
+                elif Run != 0:
+                    Run += 1
 
-    if Run == 2:
+
+    if Run == 3:
         if Person == 1:
             # Clearing the screen
             screen.fill(BLACK)
@@ -167,7 +176,7 @@ while Continue:
                     paddleBlue.rect.y = 250
                     paddleRed.rect.x = 20
                     paddleRed.rect.y = 250
-                    Run = 2
+                    Run = 3
                     ball.velocity = [random.randint(15, 15), random.randint(0, 0)]
             if ball.rect.x > 700:
                 if ball.rect.y < 500 and ball.rect.y > 0:
@@ -178,10 +187,10 @@ while Continue:
                     paddleBlue.rect.y = 250
                     paddleRed.rect.x = 20
                     paddleRed.rect.y = 250
-                    Run = 2
+                    Run = 3
                     ball.velocity = [random.randint(15, 15), random.randint(0, 0)]
 
-            if scoreRed >= 3:
+            if scoreRed >= 5:
                 # Playing main background track when game is started
                 winsound.PlaySound("/Users/Keith/Downloads/All I Do Is Win.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
                 screen.fill(BLACK)
@@ -198,7 +207,7 @@ while Continue:
                 screen.blit(text, (320, 415))
                 pygame.display.flip()
 
-            if scoreBlue >= 3:
+            if scoreBlue >= 5:
                 # Playing main background track when game is started
                 winsound.PlaySound("/Users/Keith/Downloads/All I Do Is Win.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
                 screen.fill(BLACK)
@@ -244,7 +253,7 @@ while Continue:
             for dash in range(75, 500, 30):
                 pygame.draw.line(screen, WHITE, [350, dash - 10], [350, dash], 1)
 
-            # Moving the paddles when player A uses the arrow keys or player B uses the "W/S" keys
+            # Moving the paddles when player uses the arrow keys
             keys = pygame.key.get_pressed()
             if keys[pygame.K_UP]:
                 paddleBlue.moveUp(7)
@@ -252,13 +261,13 @@ while Continue:
                 paddleBlue.moveDown(7)
 
             if ball.rect.y < paddleRed.rect.y:
-                paddleRed.rect.y = paddleRed.rect.y - 4
+                paddleRed.rect.y = paddleRed.rect.y - 2 * random.randint(-1, Difficulty * 2)
                 if paddleRed.rect.y < 80:
                     paddleRed.rect.y = 80
                 if paddleRed.rect.y > 450:
                     paddleRed.rect.y = 450
             if ball.rect.y > paddleRed.rect.y:
-                paddleRed.rect.y = paddleRed.rect.y + 4
+                paddleRed.rect.y = paddleRed.rect.y + 2 * random.randint(-1, Difficulty * 2)
                 if paddleRed.rect.y < 80:
                     paddleRed.rect.y = 80
                 if paddleRed.rect.y > 450:
@@ -278,8 +287,8 @@ while Continue:
                     paddleBlue.rect.y = 250
                     paddleRed.rect.x = 20
                     paddleRed.rect.y = 250
-                    Run = 2
-                    ball.velocity = [random.randint(15, 15), random.randint(0, 0)]
+                    Run = 3
+                    ball.velocity = [random.randint(5 * Difficulty, 5 * Difficulty), random.randint(0, 0)]
             if ball.rect.x > 700:
                 if ball.rect.y < 500 and ball.rect.y > 0:
                     scoreRed += 1
@@ -289,10 +298,10 @@ while Continue:
                     paddleBlue.rect.y = 250
                     paddleRed.rect.x = 20
                     paddleRed.rect.y = 250
-                    Run = 2
-                    ball.velocity = [random.randint(15, 15), random.randint(0, 0)]
+                    Run = 3
+                    ball.velocity = [random.randint(5 * Difficulty, 5 * Difficulty), random.randint(0, 0)]
 
-            if scoreRed >= 3:
+            if scoreRed >= 5:
                 # Playing main background track when game is started
                 winsound.PlaySound("/Users/Keith/Downloads/All I Do Is Win.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
                 screen.fill(BLACK)
@@ -322,7 +331,7 @@ while Continue:
                 #     pass
                 # else:
 
-            if scoreBlue >= 3:
+            if scoreBlue >= 5:
                 # Playing main background track when game is started
                 winsound.PlaySound("/Users/Keith/Downloads/All I Do Is Win.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
                 screen.fill(BLACK)
@@ -367,11 +376,49 @@ while Continue:
 
             # Passing 60 frames in every second
             clock.tick(60)
+    # If Run is 1, meaning that Return has been pressed a second time
 
     # If Run is still 0, meaning return has not been pressed
-    if Run == 0:
+    if Run == 2:
+        # If Start is still 1, meaning title screen code has yet to run
+        while Start == 1:
+            if Person == 1:
+                Run = 3
+            screen.fill(BLACK)
+            # Playing title background track on title screen
+            winsound.PlaySound("/Users/Keith/Downloads/doot doots.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
+            text = font3.render("Select Difficulty Level", 1, WHITE)
+            screen.blit(text, (90, 90))
+            text1 = font2.render("Easy              Press E", 1, WHITE)
+            text2 = font2.render("Normal         Press N", 1, WHITE)
+            text3 = font2.render("Hard              Press H", 1, WHITE)
+            screen.blit(text1, (270, 315))
+            screen.blit(text2, (270, 365))
+            screen.blit(text3, (270, 415))
+            # Refreshing screen with text
+            pygame.display.flip()
+            # Changing Start so that title screen displays only once
+            Start = 0
+    if Run == 1:
         # If Start is still 1, meaning title screen code has yet to run
         while Start == 2:
+            # Playing title background track on title screen
+            winsound.PlaySound("/Users/Keith/Downloads/doot doots.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
+            # Clearing the screen
+            screen.fill(BLACK)
+            text = font3.render("Do you want to play against a", 1, WHITE)
+            screen.blit(text, (20, 90))
+            text = font3.render("person or the computer?", 1, WHITE)
+            screen.blit(text, (70, 150))
+            text = font2.render("Press P or C", 1, WHITE)
+            screen.blit(text, (290, 415))
+            # Refreshing screen with text
+            pygame.display.flip()
+            # Changing Start so that title screen displays only once
+            Start = 1
+    if Run == 0:
+        # If Start is still 1, meaning title screen code has yet to run
+        while Start == 3:
             screen.fill(BLACK)
             # Playing title background track on title screen
             winsound.PlaySound("/Users/Keith/Downloads/doot doots.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
@@ -382,25 +429,7 @@ while Continue:
             # Refreshing screen with text
             pygame.display.flip()
             # Changing Start so that title screen displays only once
-            Start = 1
-    # If Run is 1, meaning that Return has been pressed a second time
-    if Run == 1:
-        # If Start is still 1, meaning title screen code has yet to run
-        while Start == 1:
-            # Playing title background track on title screen
-            winsound.PlaySound("/Users/Keith/Downloads/doot doots.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
-            # Clearing the screen
-            screen.fill(BLACK)
-            text = font3.render("Do you want to play against a", 1, WHITE)
-            screen.blit(text, (20, 90))
-            text = font3.render("person or the computer?", 1, WHITE)
-            screen.blit(text, (70, 150))
-            text = font2.render("Press Enter then P or C", 1, WHITE)
-            screen.blit(text, (250, 415))
-            # Refreshing screen with text
-            pygame.display.flip()
-            # Changing Start so that title screen displays only once
-            Start = 0
+            Start = 2
 
 
 
