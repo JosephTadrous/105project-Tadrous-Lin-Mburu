@@ -434,7 +434,7 @@ while Continue:
 
 
 
-# Stopping game engine when Continue is False:
+# Stopping game engine when Continue is False
 pygame.quit()
 
 
