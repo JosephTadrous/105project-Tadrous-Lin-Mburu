@@ -91,15 +91,21 @@ while Continue:
             if event.key == pygame.K_p:
                 Person = 1
             if event.key == pygame.K_r:
+                screen.fill(BLACK)
                 Start = 2
                 Run = 0
                 timer = 0
+                Person = 0
+                scoreBlue = 0
+                scoreRed = 0
+
+               # pygame.font.quit()
             # If return key specifically is pressed
             if event.key == pygame.K_RETURN:
                 if timer == 0:  # First return press.
                     Run += 1
                     timer = 1  # Start the timer.
-                elif timer != 0:
+                elif timer != 0: # Second return press
                     Run += 1  # Starting main game loop
                     timer = 0
                     # Playing main background track when game is started
@@ -129,10 +135,10 @@ while Continue:
             if keys[pygame.K_DOWN]:
                 paddleBlue.moveDown(7)
 
-            if ball.rect.x <= 700 and ball.rect.x >= 0:
+            if ball.rect.x <= 690 and ball.rect.x >= 0:
                 if ball.rect.y < 85:
                     ball.velocity[1] = -ball.velocity[1]
-                if ball.rect.y > 500:
+                if ball.rect.y > 490:
                     ball.velocity[1] = -ball.velocity[1]
             if ball.rect.x < 0:
                 if ball.rect.y < 500 and ball.rect.y > 0:
@@ -147,28 +153,54 @@ while Continue:
                     ball.rect.y = 250
                     Run = 2
 
-            if scoreRed == 1:
-                Run = 3
+            if scoreRed >= 11:
                 screen.fill(BLACK)
-                text = font3.render("Red wins!", 1, WHITE)
-                screen.blit(text, (20, 90))
-                screen.fill(BLACK)
+                pygame.display.flip()
+                Run = 10
+                Start = 12
+                Timer = 10
+                Person = 10
+                text = font3.render("Red wins!", 1, RED)
+                screen.blit(text, (250, 90))
                 text = font3.render("Do you want to play again?", 1, WHITE)
-                screen.blit(text, (20, 90))
+                screen.blit(text, (60, 200))
                 text = font2.render("Press R", 1, WHITE)
-                screen.blit(text, (300, 415))
+                screen.blit(text, (320, 415))
+                # # Refreshing screen with text
+                # pygame.display.flip()
+                # scoreBlue = 0
+                # scoreRed = 0
+                # text = font.render(str(scoreRed), 1, WHITE)
+                # screen.blit(text, (175, 1))
+                # text = font.render(str(scoreBlue), 1, WHITE)
+                # screen.blit(text, (525, 1))
                 # Refreshing screen with text
                 pygame.display.flip()
+                # if keys[pygame.K_r]:
+                #     pass
+                # else:
 
-            if scoreBlue == 1:
-                Run = 3
-                text = font3.render("Blue wins!", 1, WHITE)
-                screen.blit(text, (20, 90))
+            if scoreBlue >= 11:
                 screen.fill(BLACK)
+                pygame.display.flip()
+                Run = 10
+                Start = 12
+                Timer = 10
+                Person = 10
+                text = font3.render("Blue wins!", 1, BLUE)
+                screen.blit(text, (250, 90))
                 text = font3.render("Do you want to play again?", 1, WHITE)
-                screen.blit(text, (20, 90))
+                screen.blit(text, (60, 200))
                 text = font2.render("Press R", 1, WHITE)
                 screen.blit(text, (300, 415))
+                # scoreBlue = 0
+                # scoreRed = 0
+                # text = font.render(str(scoreRed), 1, WHITE)
+                # screen.blit(text, (175, 1))
+                # text = font.render(str(scoreBlue), 1, WHITE)
+                # screen.blit(text, (525, 1))
+                # text = font3.render("Blue wins!", 1, BLACK)
+                # screen.blit(text, (250, 90))
                 # Refreshing screen with text
                 pygame.display.flip()
 
@@ -195,6 +227,8 @@ while Continue:
     if Run == 0:
         # If Start is still 1, meaning title screen code has yet to run
         while Start == 2:
+            screen.fill(BLACK)
+            #pygame.font.init()
             # Playing title background track on title screen
             winsound.PlaySound("/Users/Keith/Downloads/doot doots.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
             text = font1.render("Pong V2", 1, WHITE)
@@ -217,14 +251,13 @@ while Continue:
             screen.blit(text, (20, 90))
             text = font3.render("person or the computer?", 1, WHITE)
             screen.blit(text, (70, 150))
-            text = font2.render("Press P or C", 1, WHITE)
-            screen.blit(text, (300, 415))
+            text = font2.render("Press Enter then P or C", 1, WHITE)
+            screen.blit(text, (250, 415))
             # Refreshing screen with text
             pygame.display.flip()
             # Changing Start so that title screen displays only once
             Start = 0
-    if Run == 3:
-        screen.fill(BLACK)
+
 
 
 
