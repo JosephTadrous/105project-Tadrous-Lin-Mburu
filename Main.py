@@ -40,6 +40,7 @@ ball = Ball(WHITE, 10, 10)
 ball.rect.x = 340
 ball.rect.y = 250
 
+
 # List of all the sprites to be used
 all_sprites_list = pygame.sprite.Group()
 
@@ -57,10 +58,10 @@ clock = pygame.time.Clock()
 Continue = True
 
 # Setting the fonts and font sizes to be used for title screen and scores
-font = pygame.font.SysFont("arial", 60)
-font1 = pygame.font.SysFont("arial", 120)
-font2 = pygame.font.SysFont("arial", 20)
-font3 = pygame.font.SysFont("arial", 40)
+font = pygame.font.Font("/Users/Keith/Downloads/product-sans/Product Sans Regular.ttf", 60)
+font1 = pygame.font.Font("/Users/Keith/Downloads/zorque/zorque.ttf", 120)
+font2 = pygame.font.Font("/Users/Keith/Downloads/product-sans/Product Sans Regular.ttf", 20)
+font3 = pygame.font.Font("/Users/Keith/Downloads/zorque/zorque.ttf", 40)
 
 # Establishing a requirement of condition that will trigger the title screen
 Start = 3
@@ -75,7 +76,6 @@ Difficulty = 1
 scoreRed = 0
 scoreBlue = 0
 
-
 def Pause():
     paused = True
     while paused:
@@ -89,10 +89,10 @@ def Pause():
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     quit()
-        message = font2.render("Paused", 1, WHITE)
-        screen.blit(message, (300, 415))
+        message = font3.render("Paused", 1, WHITE)
+        screen.blit(message, (270, 250))
         message2 = font2.render("Press T to continue", 1, WHITE)
-        screen.blit(message2, (400, 415))
+        screen.blit(message2, (265, 470))
         pygame.display.flip()
 
 # Running game until Continue is False
@@ -142,6 +142,8 @@ while Continue:
             if event.key == pygame.K_h:
                 Difficulty = 3
                 Run += 1
+            if event.key == pygame.K_t:
+                Pause()
             if event.key == pygame.K_r:
                 screen.fill(BLACK)
                 Start = 3
@@ -156,8 +158,7 @@ while Continue:
                     Run += 1
                 elif Run != 0:
                     Run += 1
-            if event.key == pygame.K_t:
-                Pause()
+
 
     if Run == 3:
         if Person == 1:
@@ -175,13 +176,13 @@ while Continue:
             # Moving the paddles when player A uses the arrow keys or player B uses the "W/S" keys
             keys = pygame.key.get_pressed()
             if keys[pygame.K_w]:
-                paddleRed.moveUp(7)
+                paddleRed.moveUp(6)
             if keys[pygame.K_s]:
-                paddleRed.moveDown(7)
+                paddleRed.moveDown(6)
             if keys[pygame.K_UP]:
-                paddleBlue.moveUp(7)
+                paddleBlue.moveUp(6)
             if keys[pygame.K_DOWN]:
-                paddleBlue.moveDown(7)
+                paddleBlue.moveDown(6)
 
             if ball.rect.x <= 690 and ball.rect.x >= 0:
                 if ball.rect.y < 85:
@@ -309,7 +310,7 @@ while Continue:
                     paddleRed.rect.x = 20
                     paddleRed.rect.y = 250
                     Run = 3
-                    ball.velocity = [random.randint(5 * Difficulty, 5 * Difficulty), random.randint(0, 0)]
+                    ball.velocity = [random.randint(3 * Difficulty, 3 * Difficulty), random.randint(0, 0)]
             if ball.rect.x > 700:
                 if ball.rect.y < 500 and ball.rect.y > 0:
                     scoreRed += 1
@@ -320,7 +321,7 @@ while Continue:
                     paddleRed.rect.x = 20
                     paddleRed.rect.y = 250
                     Run = 3
-                    ball.velocity = [random.randint(5 * Difficulty, 5 * Difficulty), random.randint(0, 0)]
+                    ball.velocity = [random.randint(3 * Difficulty, 3 * Difficulty), random.randint(0, 0)]
 
             if scoreRed >= 5:
                 # Playing main background track when game is started
@@ -455,7 +456,7 @@ while Continue:
 
 
 
-# Stopping game engine when Continue is False
+# Stopping game engine when Continue is False:
 pygame.quit()
 
 
