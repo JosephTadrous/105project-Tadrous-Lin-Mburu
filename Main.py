@@ -134,12 +134,18 @@ while Continue:
                     # Playing main background track when game is started
                     winsound.PlaySound("/Users/Keith/Downloads/backtrack.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
             if event.key == pygame.K_e:
+                # Playing main background track when game is started
+                winsound.PlaySound("/Users/Keith/Downloads/backtrack.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
                 Difficulty = 1
                 Run += 1
             if event.key == pygame.K_n:
+                # Playing main background track when game is started
+                winsound.PlaySound("/Users/Keith/Downloads/backtrack.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
                 Difficulty = 2
                 Run += 1
             if event.key == pygame.K_h:
+                # Playing main background track when game is started
+                winsound.PlaySound("/Users/Keith/Downloads/backtrack.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
                 Difficulty = 3
                 Run += 1
             if event.key == pygame.K_t:
