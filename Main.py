@@ -3,7 +3,9 @@ import pygame
 # Importing sound package
 import winsound
 # Importing Paddle class
-from Paddles import Paddle
+from Paddles import Pad
+
+dle
 # Importing Ball class
 from Ball import Ball
 # Importing package to randomize ball velocity
@@ -58,10 +60,10 @@ clock = pygame.time.Clock()
 Continue = True
 
 # Setting the fonts and font sizes to be used for title screen and scores
-font = pygame.font.Font("/Users/Keith/Downloads/product-sans/Product Sans Regular.ttf", 60)
-font1 = pygame.font.Font("/Users/Keith/Downloads/zorque/zorque.ttf", 120)
-font2 = pygame.font.Font("/Users/Keith/Downloads/product-sans/Product Sans Regular.ttf", 20)
-font3 = pygame.font.Font("/Users/Keith/Downloads/zorque/zorque.ttf", 40)
+font = pygame.font.Font("/Haverford/product-sans/Product Sans Regular.ttf", 60)
+font1 = pygame.font.Font("/Haverford/zorque/zorque.ttf", 120)
+font2 = pygame.font.Font("/Haverford/product-sans/Product Sans Regular.ttf", 20)
+font3 = pygame.font.Font("/Haverford/zorque/zorque.ttf", 40)
 
 # Establishing a requirement of condition that will trigger the title screen
 Start = 3
@@ -85,7 +87,7 @@ def Pause():
                 quit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_t:
-                    paused = False
+                    pused = False
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     quit()
@@ -122,34 +124,36 @@ while Continue:
                 screen.blit(image, (0, 0))
                 pygame.display.flip()
             if event.key == pygame.K_p:
+                # Playing main background track when game is started
+
                 if Run == 1:
                     Person = 1
                     Run += 1
-                    # Playing main background track when game is started
-                    winsound.PlaySound("/Users/Keith/Downloads/backtrack.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
+
+
+
             if event.key == pygame.K_c:
                 Computer = 1
                 if Run == 1:
                     Run += 1
-                    # Playing main background track when game is started
-                    winsound.PlaySound("/Users/Keith/Downloads/backtrack.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
+
             if event.key == pygame.K_e:
                 # Playing main background track when game is started
-                winsound.PlaySound("/Users/Keith/Downloads/backtrack.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
+                winsound.PlaySound("/Haverford/Music/backtrack.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
                 Difficulty = 1
                 Run += 1
             if event.key == pygame.K_n:
                 # Playing main background track when game is started
-                winsound.PlaySound("/Users/Keith/Downloads/backtrack.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
+                winsound.PlaySound("/Haverford/Music/backtrack.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
                 Difficulty = 2
                 Run += 1
             if event.key == pygame.K_h:
                 # Playing main background track when game is started
-                winsound.PlaySound("/Users/Keith/Downloads/backtrack.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
+                winsound.PlaySound("/Haverford/Music/backtrack.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
                 Difficulty = 3
                 Run += 1
-            if event.key == pygame.K_t:
-                Pause()
+                if event.key == pygame.K_t:
+                    Pause()
             if event.key == pygame.K_r:
                 screen.fill(BLACK)
                 Start = 3
@@ -167,12 +171,15 @@ while Continue:
 
 
     if Run == 3:
+
         if Person == 1:
+
             # Clearing the screen
             screen.fill(BLACK)
             # Drawing the score bar
             pygame.draw.line(screen, WHITE, [350, 0], [350, 75], 5)
             pygame.draw.line(screen, WHITE, [700, 75], [0, 75], 10)
+
             # Drawing the net
             for dash in range(75, 500, 30):
                 pygame.draw.line(screen, WHITE, [350, dash - 10], [350, dash], 1)
@@ -189,6 +196,7 @@ while Continue:
                 paddleBlue.moveUp(6)
             if keys[pygame.K_DOWN]:
                 paddleBlue.moveDown(6)
+
 
             if ball.rect.x <= 690 and ball.rect.x >= 0:
                 if ball.rect.y < 85:
@@ -220,7 +228,7 @@ while Continue:
 
             if scoreRed >= 5:
                 # Playing main background track when game is started
-                winsound.PlaySound("/Users/Keith/Downloads/All I Do Is Win.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
+                winsound.PlaySound("/Haverford/Music/All I Do Is Win.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
                 screen.fill(BLACK)
                 pygame.display.flip()
                 Run = 10
@@ -237,7 +245,7 @@ while Continue:
 
             if scoreBlue >= 5:
                 # Playing main background track when game is started
-                winsound.PlaySound("/Users/Keith/Downloads/All I Do Is Win.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
+                winsound.PlaySound("/Haverford/Music/All I Do Is Win.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
                 screen.fill(BLACK)
                 pygame.display.flip()
                 Run = 10
@@ -331,7 +339,7 @@ while Continue:
 
             if scoreRed >= 5:
                 # Playing main background track when game is started
-                winsound.PlaySound("/Users/Keith/Downloads/All I Do Is Win.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
+                winsound.PlaySound("/Haverford/Music/All I Do Is Win.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
                 screen.fill(BLACK)
                 pygame.display.flip()
                 Run = 10
@@ -361,7 +369,7 @@ while Continue:
 
             if scoreBlue >= 5:
                 # Playing main background track when game is started
-                winsound.PlaySound("/Users/Keith/Downloads/All I Do Is Win.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
+                winsound.PlaySound("/Haverford/Music/All I Do Is Win.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
                 screen.fill(BLACK)
                 pygame.display.flip()
                 Run = 10
@@ -414,7 +422,8 @@ while Continue:
                 Run = 3
             screen.fill(BLACK)
             # Playing title background track on title screen
-            winsound.PlaySound("/Users/Keith/Downloads/doot doots.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
+            winsound.PlaySound("/Haverford/Music/backtrack.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
+
             text = font3.render("Select Difficulty Level", 1, WHITE)
             screen.blit(text, (90, 90))
             text1 = font2.render("Easy              Press E", 1, WHITE)
@@ -431,7 +440,7 @@ while Continue:
         # If Start is still 1, meaning title screen code has yet to run
         while Start == 2:
             # Playing title background track on title screen
-            winsound.PlaySound("/Users/Keith/Downloads/doot doots.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
+            winsound.PlaySound("/Haverford/Music/backtrack.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
             # Clearing the screen
             screen.fill(BLACK)
             text = font3.render("Do you want to play against a", 1, WHITE)
@@ -449,7 +458,7 @@ while Continue:
         while Start == 3:
             screen.fill(BLACK)
             # Playing title background track on title screen
-            winsound.PlaySound("/Users/Keith/Downloads/doot doots.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
+            winsound.PlaySound("/Haverford/Music/backtrack.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
             text = font1.render("Pong V2", 1, WHITE)
             screen.blit(text, (90, 90))
             text = font2.render("Press Enter to start", 1, WHITE)
@@ -464,6 +473,295 @@ while Continue:
 
 # Stopping game engine when Continue is False:
 pygame.quit()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
