@@ -3,9 +3,7 @@ import pygame
 # Importing sound package
 import winsound
 # Importing Paddle class
-from Paddles import Pad
-
-
+from Paddles import Paddle
 # Importing Ball class
 from Ball import Ball
 # Importing package to randomize ball velocity
@@ -38,7 +36,8 @@ paddleBlue = Paddle(BLUE, 10, 50)
 paddleBlue.rect.x = 670
 paddleBlue.rect.y = 250
 
-ball = Ball(WHITE, 10, 10)
+ball = Ball(WHITE, 10, 10)# Assigning color white to ball
+# Establishing the position of the ball
 ball.rect.x = 340
 ball.rect.y = 250
 
@@ -82,15 +81,19 @@ def Pause():
     paused = True
     while paused:
         for event in pygame.event.get():
+            # Allowing quitting while paused
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
             if event.type == pygame.KEYDOWN:
+                # Undoing pause when T is pressed
                 if event.key == pygame.K_t:
-                    pused = False
+                    paused = False
+                # Allowing quitting while paused
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     quit()
+        # Stopping game to show "Paused" and "Press T to Continue" text
         message = font3.render("Paused", 1, WHITE)
         screen.blit(message, (270, 250))
         message2 = font2.render("Press T to continue", 1, WHITE)
@@ -129,9 +132,6 @@ while Continue:
                 if Run == 1:
                     Person = 1
                     Run += 1
-
-
-
             if event.key == pygame.K_c:
                 Computer = 1
                 if Run == 1:
@@ -183,9 +183,6 @@ while Continue:
             # Drawing the net
             for dash in range(75, 500, 30):
                 pygame.draw.line(screen, WHITE, [350, dash - 10], [350, dash], 1)
-
-
-
             # Moving the paddles when player A uses the arrow keys or player B uses the "W/S" keys
             keys = pygame.key.get_pressed()
             if keys[pygame.K_w]:
@@ -197,33 +194,41 @@ while Continue:
             if keys[pygame.K_DOWN]:
                 paddleBlue.moveDown(6)
 
-
+            # Ball bouncing off the top and bottom of the screen
             if ball.rect.x <= 690 and ball.rect.x >= 0:
                 if ball.rect.y < 85:
                     ball.velocity[1] = -ball.velocity[1]
                 if ball.rect.y > 490:
                     ball.velocity[1] = -ball.velocity[1]
+            # Blue scoring a point
             if ball.rect.x < 0:
                 if ball.rect.y < 500 and ball.rect.y > 0:
                     scoreBlue += 1
+                    # Resetting paddle and ball positions
                     ball.rect.x = 345
                     ball.rect.y = 250
                     paddleBlue.rect.x = 670
                     paddleBlue.rect.y = 250
                     paddleRed.rect.x = 20
                     paddleRed.rect.y = 250
+                    # Starting game loop again
                     Run = 3
+                    # Starting ball movement
                     ball.velocity = [random.randint(15, 15), random.randint(0, 0)]
+            # Red scoring a point
             if ball.rect.x > 700:
                 if ball.rect.y < 500 and ball.rect.y > 0:
                     scoreRed += 1
+                    # Resetting paddle and ball positions
                     ball.rect.x = 345
                     ball.rect.y = 250
                     paddleBlue.rect.x = 670
                     paddleBlue.rect.y = 250
                     paddleRed.rect.x = 20
                     paddleRed.rect.y = 250
+                    # Starting game loop again
                     Run = 3
+                    # Starting ball movement
                     ball.velocity = [random.randint(15, 15), random.randint(0, 0)]
 
             if scoreRed >= 5:
@@ -231,6 +236,7 @@ while Continue:
                 winsound.PlaySound("/Haverford/Music/All I Do Is Win.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
                 screen.fill(BLACK)
                 pygame.display.flip()
+                # Setting variables to random integer
                 Run = 10
                 Start = 12
                 Timer = 10
@@ -260,9 +266,10 @@ while Continue:
                 screen.blit(text, (300, 415))
                 pygame.display.flip()
 
+            # Handling interaction between ball and paddle
             if pygame.sprite.collide_mask(ball, paddleRed) or pygame.sprite.collide_mask(ball, paddleBlue):
                 ball.bounce()
-
+            # Displaying score of Red and Blue
             text = font.render(str(scoreRed), 1, WHITE)
             screen.blit(text, (175, 1))
             text = font.render(str(scoreBlue), 1, WHITE)
@@ -363,9 +370,7 @@ while Continue:
                 # screen.blit(text, (525, 1))
                 # Refreshing screen with text
                 pygame.display.flip()
-                # if keys[pygame.K_r]:
-                #     pass
-                # else:
+
 
             if scoreBlue >= 5:
                 # Playing main background track when game is started
@@ -383,15 +388,7 @@ while Continue:
                 screen.blit(text, (60, 200))
                 text = font2.render("Press R", 1, WHITE)
                 screen.blit(text, (300, 415))
-                # scoreBlue = 0
-                # scoreRed = 0
-                # text = font.render(str(scoreRed), 1, WHITE)
-                # screen.blit(text, (175, 1))
-                # text = font.render(str(scoreBlue), 1, WHITE)
-                # screen.blit(text, (525, 1))
-                # text = font3.render("Blue wins!", 1, BLACK)
-                # screen.blit(text, (250, 90))
-                # Refreshing screen with text
+                #Refreshing Screen with text
                 pygame.display.flip()
 
             if pygame.sprite.collide_mask(ball, paddleRed) or pygame.sprite.collide_mask(ball, paddleBlue):
@@ -423,7 +420,7 @@ while Continue:
             screen.fill(BLACK)
             # Playing title background track on title screen
             winsound.PlaySound("/Haverford/Music/backtrack.wav", winsound.SND_ASYNC | winsound.SND_LOOP)
-
+            # Showing difficulty selection screen
             text = font3.render("Select Difficulty Level", 1, WHITE)
             screen.blit(text, (90, 90))
             text1 = font2.render("Easy              Press E", 1, WHITE)
