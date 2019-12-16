@@ -11,7 +11,9 @@ To display correct font:
 Download "Product Sans Regular.ttf" and "zorque.ttf" file from repo
 Change all instances of "/Users/Keith/Downloads/product-sans/Product Sans Regular.ttf" and "/Users/Keith/Downloads/zorque/zorque.ttf" to the file paths of the downloaded files on your computer
 
-Press T to pause game
+Optional: To display credits:
+Download "Pygamer credits.png" file from repo
+Change all instances of "/Users/Keith/Downloads/Pygamer credits.png" to the file path of the downloaded file on your computer
 
 Move left paddle up and down with W/S, right paddle with Up arrow/Down arrow
 
