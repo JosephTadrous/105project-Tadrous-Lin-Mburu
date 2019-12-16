@@ -1,6 +1,8 @@
 # 105project-Tadrous-Lin-Mburu
 105project-tadrous-lin created by GitHub Classroom
 
+Please run the program under the Windows system!
+
 Install pygame package
 
 To play correct sound:
