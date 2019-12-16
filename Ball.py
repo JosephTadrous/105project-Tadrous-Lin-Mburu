@@ -1,56 +1,38 @@
 import pygame
 from random import randint
 
-BLACK = (0, 0, 0)
+BLACK = (0, 0, 0)#define color
 
 
 class Ball(pygame.sprite.Sprite):
-    # This class represents a car. It derives from the "Sprite" class in Pygame.
+   
 
     def __init__(self, color, width, height):
-        # Call the parent class (Sprite) constructor
+        # Call the parent class (Sprite) 
         super().__init__()
 
-        # Pass in the color of the car, and its x and y position, width and height.
+        # Define the properties of the ball: x and y position, width and height.
         # Set the background color and set it to be transparent
         self.image = pygame.Surface([width, height])
         self.image.fill(BLACK)
         self.image.set_colorkey(BLACK)
 
-        # Draw the ball (a rectangle!)
+        # Draw the ball 
         pygame.draw.rect(self.image, color, [0, 0, width, height])
 
         self.velocity = [randint(8, 10), randint(-10, 10)]
 
-        # Fetch the rectangle object that has the dimensions of the image.
+        # Fetch the rectangle object which is the ball
         self.rect = self.image.get_rect()
 
-    def update(self):
+    def update(self):# this functions will update the position of the ball
         self.rect.x += self.velocity[0]
         self.rect.y += self.velocity[1]
 
-    def bounce(self):
-        self.velocity[0] = -self.velocity[0]
-        self.velocity[1] = randint(-10, 10)
+    def bounce(self):#this functions changes the velocity of the ball
+        self.velocity[0] = -self.velocity[0]#the x-component of the velocity is reversed
+        self.velocity[1] = randint(-10, 10)#the y-component velocity is randomly reassigned without changing its direction
 
-
-# black=(0,0,0)
-# class Ball(pygame.sprite.Sprite):
-#     def __init__(self, color,radius):
-#         super().__init__()
-#         self.image=pygame.Surface([30,30])
-#         self.image.fill(black)
-#         self.image.set_colorkey(black)
-#         pygame.draw.circle(self.image,color,(0,0),radius)
-#         self.velocity = [random.randint(10, 20), random.randint(-20, 20)]
-#         self.circle = self.image.get_rect()
-#
-#     def update(self):
-#         self.circle.x += self.velocity[0]
-#         self.circle.y +=self.velocity[1]
-#
-#     def bounce(self):
-#         self.velocity[0]=-self.velocity[0]
-#         self.velocity[1]=random.randint(-20,20)
+        self.velocity[1]=random.randint(-20,20)
 
 
