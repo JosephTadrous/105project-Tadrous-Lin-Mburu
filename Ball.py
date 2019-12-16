@@ -33,6 +33,6 @@ class Ball(pygame.sprite.Sprite):
         self.velocity[0] = -self.velocity[0]#the x-component of the velocity is reversed
         self.velocity[1] = randint(-10, 10)#the y-component velocity is randomly reassigned without changing its direction
 
-        self.velocity[1]=random.randint(-20,20)
+        
 
 
