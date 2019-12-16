@@ -5,7 +5,7 @@ import winsound
 # Importing Paddle class
 from Paddles import Pad
 
-dle
+
 # Importing Ball class
 from Ball import Ball
 # Importing package to randomize ball velocity
