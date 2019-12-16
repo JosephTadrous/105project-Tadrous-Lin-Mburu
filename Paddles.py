@@ -16,14 +16,14 @@ class Paddle(pygame.sprite.Sprite):
        # draw the paddle on the surface and initalise its position at (0,0) with dimensions:(width,height)
        self.rect = self.image.get_rect()
        # fetch the rectangle object that has the dimensions of the image.
-   def moveUp(self, pixels): # method
-       self.rect.y -= pixels
-       if self.rect.y < 80:
+   def moveUp(self, pixels): # this method is used to move the paddles up by changing their pixels which are also their positions
+       self.rect.y -= pixels #while the paddles are moving up, only their y-component pixels will decrease
+       if self.rect.y < 80:  # the following section of code make sures that paddles will not move outside of the top of the screen 
            self.rect.y = 80
-       # Check that you are not going too far (off the screen)
+       
 
-   def moveDown(self, pixels):
-       self.rect.y += pixels
-       if self.rect.y > 450:
+   def moveDown(self, pixels):# this method is used to move the paddles down by changing their pixels which are also their positions
+       self.rect.y += pixels #while the paddles are moving down, only their y-component pixels will increase
+       if self.rect.y > 450: # the following section of code make sures that paddles will not move outside of bottom of the screen
            self.rect.y = 450
 
